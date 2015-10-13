@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Created by Johan Pettersson on 2015-10-09 18:27.
@@ -34,6 +35,9 @@ public class WaitOkConnecting implements SIPState {
             String request = currentState.getIn().readLine();
 
             if(request.toLowerCase().equals("ok")) {
+                PrintWriter out = currentState.getOut();
+                out.println("ACK");
+                System.out.println("waitOkConnecting");
                 currentState.setCurrentState(currentState.getConnected());
             } else if (request.toLowerCase().equals("busy")) {
                 gotBusy();

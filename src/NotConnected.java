@@ -94,6 +94,7 @@ public class NotConnected implements SIPState {
     public void gotInvite(String request) {
 
         if (request.equals("INVITE")) {
+            System.out.println("gotInvite");
             currentState.setCurrentState(currentState.getConnecting());
         } else {
             currentState.setCurrentState(currentState.getNotConnected());
