@@ -58,6 +58,8 @@ public class Connected implements SIPState {
 
     @Override
     public void gotBye() {
+        PrintWriter out = currentState.getOut();
+        out.println("OK");
         System.out.println("gotBye");
         currentState.setCurrentState(currentState.getNotConnected());
     }

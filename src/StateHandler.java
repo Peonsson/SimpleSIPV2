@@ -203,9 +203,10 @@ public class StateHandler {
                 }
 
                 if (currentState.getState().toLowerCase().equals("connected")) {
-                    System.out.println("ClientHandler: We are now connected.");
-                    new ClientHandlerListener().start();
                     busy = true;
+                    System.out.println("ClientHandler: We are now connected.");
+                    //TODO: implement audio logic.
+                    new ClientHandlerListener().start();
                 }
             }
         }
@@ -218,7 +219,6 @@ public class StateHandler {
             try {
                 String request = in.readLine();
                 if(request.toLowerCase().equals("bye")) {
-                    out.println("OK");
                     currentState.gotBye();
                     if(currentState.getState().toLowerCase().equals("notconnected")) {
                         busy = false;
@@ -258,11 +258,9 @@ public class StateHandler {
                                 currentState.gotAck();
                                 if(currentState.getState().toLowerCase().equals("connected")) {
                                     System.out.println("ClientListener: We are now connected.");
-                                    //TODO: implement audio.
+                                    //TODO: implement audio logic.
                                     request = in.readLine();
-                                    System.out.println("request: " + request);
                                     if(request.toLowerCase().equals("bye")) {
-                                        out.println("OK");
                                         currentState.gotBye();
                                         if(currentState.getState().toLowerCase().equals("notconnected")) {
                                             busy = false;
