@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8599149-5286-4567-acfa-5f460ce15493" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/SimpleSIPV5/StateHandler$ClientHandler.class" afterPath="$PROJECT_DIR$/out/production/SimpleSIPV5/StateHandler$ClientHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/SimpleSIPV5/StateHandler$ClientListener.class" afterPath="$PROJECT_DIR$/out/production/SimpleSIPV5/StateHandler$ClientListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/SimpleSIPV5/StateHandler.class" afterPath="$PROJECT_DIR$/out/production/SimpleSIPV5/StateHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NotConnected.java" afterPath="$PROJECT_DIR$/src/NotConnected.java" />
+      <change type="DELETED" beforePath="C:\Users\Peonsson\IdeaProjects\SimpleSIPV2\out\production\SimpleSIPV5\NotConnected.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Peonsson\IdeaProjects\SimpleSIPV2\out\production\SimpleSIPV5\WaitOkConnecting.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/WaitOkConnecting.java" afterPath="$PROJECT_DIR$/src/WaitOkConnecting.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SimpleSIPV5.iws" />
@@ -75,21 +72,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WaitAck.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WaitAck.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/WaitAck.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.68805134">
+            <state vertical-scroll-proportion="0.0">
               <caret line="62" column="54" selection-start-line="62" selection-start-column="54" selection-end-line="62" selection-end-column="54" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WaitOkConnecting.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="WaitOkConnecting.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/WaitOkConnecting.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="38" column="35" selection-start-line="38" selection-start-column="35" selection-end-line="38" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.7733333">
+              <caret line="41" column="62" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -448,7 +445,13 @@
       <option name="project" value="LOCAL" />
       <updated>1444746747819</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="init">
+      <created>1444750282005</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1444750282005</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -463,7 +466,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32866043" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3309804" sideWeight="0.496875" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3309804" sideWeight="0.496875" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15478119" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -884,21 +887,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/WaitOkConnecting.java">
+    <entry file="file://$PROJECT_DIR$/src/WaitAck.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="35" selection-start-line="38" selection-start-column="35" selection-end-line="38" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="62" column="54" selection-start-line="62" selection-start-column="54" selection-end-line="62" selection-end-column="54" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/WaitAck.java">
+    <entry file="file://$PROJECT_DIR$/src/WaitOkConnecting.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.68805134">
-          <caret line="62" column="54" selection-start-line="62" selection-start-column="54" selection-end-line="62" selection-end-column="54" />
-          <folding />
+        <state vertical-scroll-proportion="0.7733333">
+          <caret line="41" column="62" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
