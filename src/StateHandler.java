@@ -204,7 +204,6 @@ public class StateHandler {
 
                 if (currentState.getState().toLowerCase().equals("connected")) {
                     System.out.println("ClientHandler: We are now connected.");
-                    out.println("We are now connected bro.");
                     busy = true;
                 }
             }
