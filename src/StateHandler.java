@@ -204,8 +204,32 @@ public class StateHandler {
 
                 if (currentState.getState().toLowerCase().equals("connected")) {
                     System.out.println("ClientHandler: We are now connected.");
+                    new ClientHandlerListener().start();
                     busy = true;
                 }
+            }
+        }
+    }
+
+    private class ClientHandlerListener extends Thread {
+
+        @Override
+        public void run() {
+            try {
+                String request = in.readLine();
+                if(request.toLowerCase().equals("bye")) {
+                    out.println("OK");
+                    currentState.gotBye();
+                    if(currentState.getState().toLowerCase().equals("notconnected")) {
+                        busy = false;
+                    } else {
+                        System.out.println("something went wrong.");
+                    }
+                } else {
+                    return;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
