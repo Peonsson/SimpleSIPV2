@@ -161,31 +161,49 @@ public class StateHandler {
         public void run() {
 
             Scanner scan = new Scanner(System.in);
-            String input = scan.nextLine();
 
-            String[] parts = input.split(" ");
+            while (true) {
 
-            if (parts[0].startsWith("/quit"))
-                System.exit(0);
+                String input = scan.nextLine();
 
-            else if (parts.length == 6) {
-                currentState.sendInvite(parts);
+                if (busy == true && input.toLowerCase().equals("bye")) {
 
-            }
-            else {
-                return;
+                    currentState.sendBye();
 
-            }
+                    if(currentState.getState().toLowerCase().equals("waitokdisconnecting")) {
+                        try {
+                            input = in.readLine();
+                            if(input.toLowerCase().equals("ok")) {
+                                currentState.gotOk();
+                                continue;
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    return;
+                }
+                String[] parts = input.split(" ");
 
-            if(currentState.getState().toLowerCase().equals("waitok")) {
-                currentState.sendAck();
-            }
-            else {
-                return;
-            }
+                if (parts[0].startsWith("/quit"))
+                    System.exit(0);
 
-            if(currentState.getState().toLowerCase().equals("connected")) {
-                out.println("We are now connected bro.");
+                else if (parts.length == 6) {
+                    currentState.sendInvite(parts);
+                } else {
+                    return;
+                }
+
+                if (currentState.getState().toLowerCase().equals("waitok")) {
+                    currentState.sendAck();
+                } else {
+                    return;
+                }
+
+                if (currentState.getState().toLowerCase().equals("connected")) {
+                    out.println("We are now connected bro.");
+                    busy = true;
+                }
             }
         }
     }
@@ -201,15 +219,16 @@ public class StateHandler {
                 while (true) {
                     if (busy == false) {
                         clientSocket = listenSocket.accept();
+                        busy = true;
 
                         out = new PrintWriter(clientSocket.getOutputStream(), true);
                         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                         String request = in.readLine();
 
                         currentState.gotInvite(request);
-                        if(currentState.getState().toLowerCase().equals("connecting")) {
+                        if (currentState.getState().toLowerCase().equals("connecting")) {
                             currentState.tryConnect();
-                            if(currentState.getState().toLowerCase().equals("waitack")) {
+                            if (currentState.getState().toLowerCase().equals("waitack")) {
                                 currentState.gotAck();
                             }
                         }
