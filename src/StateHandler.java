@@ -237,6 +237,7 @@ public class StateHandler {
                                     System.out.println("ClientListener: We are now connected.");
                                     //TODO: implement audio.
                                     request = in.readLine();
+                                    System.out.println("request: " + request);
                                     if(request.toLowerCase().equals("bye")) {
                                         out.println("OK");
                                         currentState.gotBye();
