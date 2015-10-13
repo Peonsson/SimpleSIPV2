@@ -13,7 +13,7 @@ public class Main {
 //        handler.sendBye();
 //        handler.gotOk();
 //        handler.tryConnect();
-        System.out.println("AM I ALIVE?");
+//        System.out.println("AM I ALIVE?");
 
 //        handler.gotInvite();
 //        handler.tryConnect();
