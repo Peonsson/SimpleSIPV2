@@ -194,7 +194,7 @@ public class StateHandler {
                     return;
                 }
 
-                if (currentState.getState().toLowerCase().equals("waitok")) {
+                if (currentState.getState().toLowerCase().equals("waitokconnecting")) {
                     System.out.println("got here 1");
                     currentState.sendAck();
                 } else {
