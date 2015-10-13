@@ -239,6 +239,13 @@ public class StateHandler {
                                     request = in.readLine();
                                     if(request.toLowerCase().equals("bye")) {
                                         out.println("OK");
+                                        currentState.gotBye();
+                                        if(currentState.getState().toLowerCase().equals("notconnected")) {
+                                            busy = false;
+                                            continue;
+                                        } else {
+                                            System.out.println("something went wrong.");
+                                        }
                                     } else {
                                         return;
                                     }
