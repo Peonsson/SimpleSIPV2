@@ -195,6 +195,7 @@ public class StateHandler {
                 }
 
                 if (currentState.getState().toLowerCase().equals("waitok")) {
+                    System.out.println("got here 1");
                     currentState.sendAck();
                 } else {
                     return;
