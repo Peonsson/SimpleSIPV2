@@ -183,6 +183,7 @@ public class StateHandler {
                     }
                     return;
                 }
+
                 String[] parts = input.split(" ");
 
                 if (parts[0].startsWith("/quit"))
@@ -234,6 +235,13 @@ public class StateHandler {
                                 currentState.gotAck();
                                 if(currentState.getState().toLowerCase().equals("connected")) {
                                     System.out.println("ClientListener: We are now connected.");
+                                    //TODO: implement audio.
+                                    request = in.readLine();
+                                    if(request.toLowerCase().equals("bye")) {
+                                        out.println("OK");
+                                    } else {
+                                        return;
+                                    }
                                 }
                             }
                         }
