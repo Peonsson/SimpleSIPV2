@@ -48,11 +48,17 @@ public class WaitOkConnecting implements SIPState {
                 System.out.println("waitOkConnecting gotBusy");
                 gotBusy();
             } else {
+                System.err.println("EXPECTED OK BUT GOT: " + request);
                 currentState.setCurrentState(currentState.getNotConnected());
                 System.out.println("getNotConnected");
             }
 
-        } catch (IOException e) {
+        } catch (SocketTimeoutException e) {
+            System.err.println("SocketTimeoutException");
+            currentState.setCurrentState(currentState.getNotConnected());
+            System.out.println("getNotConnected");
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }

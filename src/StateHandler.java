@@ -271,6 +271,14 @@ public class StateHandler {
 
                         currentState.gotInvite(request);
                         if (currentState.getState().toLowerCase().equals("connecting")) {
+
+                            try {
+                                Thread.sleep(5000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+
                             currentState.tryConnect();
                             if (currentState.getState().toLowerCase().equals("waitack")) {
                                 currentState.gotAck();
