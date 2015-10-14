@@ -227,14 +227,10 @@ public class StateHandler {
                     } else {
                         System.out.println("ClientHandlerListener: something went wrong 1.");
                     }
-                }
-
-                else if (currentState.getState().toLowerCase().equals("waitokdisconnecting") && request.toLowerCase().equals("ok")) { //om vi läser ok
+                } else if (currentState.getState().toLowerCase().equals("waitokdisconnecting") && request.toLowerCase().equals("ok")) { //om vi läser ok
                     currentState.gotOk();
                     busy = false;
-                }
-
-                else {
+                } else {
                     System.out.println("ClientHandlerListener: something went wrong 2.");
                     return;
                 }
@@ -267,29 +263,34 @@ public class StateHandler {
 
                         out = new PrintWriter(clientSocket.getOutputStream(), true);
                         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                        String request = in.readLine();
 
-                        currentState.gotInvite(request);
-                        if (currentState.getState().toLowerCase().equals("connecting")) {
+                        try {
+                            String request = in.readLine();
 
-                            try {
-                                Thread.sleep(5000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                            currentState.gotInvite(request);
+                            if (currentState.getState().toLowerCase().equals("connecting")) {
+
+                                try {
+                                    Thread.sleep(5000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
 
 
-                            currentState.tryConnect();
-                            if (currentState.getState().toLowerCase().equals("waitack")) {
-                                currentState.gotAck();
-                                if (currentState.getState().toLowerCase().equals("connected")) {
-                                    System.out.println("ClientListener: We are now connected.");
+                                currentState.tryConnect();
+                                if (currentState.getState().toLowerCase().equals("waitack")) {
+                                    currentState.gotAck();
+                                    if (currentState.getState().toLowerCase().equals("connected")) {
+                                        System.out.println("ClientListener: We are now connected.");
 
-                                    //TODO: implement audio logic.
+                                        //TODO: implement audio logic.
 
-                                    new ClientHandlerListener().start();
+                                        new ClientHandlerListener().start();
+                                    }
                                 }
                             }
+                        } catch (SocketTimeoutException e) {
+                            currentState.noResponse();
                         }
                     } else {
                         System.out.println("busy: " + busy);
@@ -300,11 +301,9 @@ public class StateHandler {
                         e.printStackTrace();
                     }
                 }
-            }
-            catch (SocketTimeoutException e) {
+            } catch (SocketTimeoutException e) {
                 currentState.noResponse();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
