@@ -261,7 +261,7 @@ public class StateHandler {
                 while (true) {
                     if (busy == false) {
 
-                        System.out.println("listening..");
+                        System.out.println("Listening..");
                         clientSocket = listenSocket.accept();
                         busy = true;
 
@@ -283,6 +283,8 @@ public class StateHandler {
                                 }
                             }
                         }
+                    } else {
+                        System.out.println("busy: " + busy);
                     }
                     try {
                         Thread.sleep(1000);
