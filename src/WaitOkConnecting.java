@@ -34,8 +34,6 @@ public class WaitOkConnecting implements SIPState {
         try {
             String request = currentState.getIn().readLine();
 
-            System.out.println("request: " + request);
-
             if(request.toLowerCase().equals("ok")) {
                 System.out.println("waitOkConnecting");
                 PrintWriter out = currentState.getOut();

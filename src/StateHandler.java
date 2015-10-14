@@ -170,6 +170,10 @@ public class StateHandler {
 
                 String input = scan.nextLine();
 
+                if(input.toLowerCase().equals("state")) {
+                    System.out.println("state: " + currentState.getState());
+                }
+
                 if (busy == true && input.toLowerCase().equals("bye")) {
 
                     currentState.sendBye();
@@ -200,7 +204,6 @@ public class StateHandler {
                 }
 
                 if (currentState.getState().toLowerCase().equals("waitokconnecting")) {
-                    System.out.println("got here 1");
                     currentState.sendAck();
                 } else {
                     return;
