@@ -47,6 +47,14 @@ public class StateHandler {
         new ClientHandler().start();
     }
 
+    public boolean isBusy() {
+        return busy;
+    }
+
+    public void setBusy(boolean busy) {
+        this.busy = busy;
+    }
+
     public void setCurrentState(SIPState state) {
         currentState = state;
     }
