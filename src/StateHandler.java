@@ -261,6 +261,8 @@ public class StateHandler {
                         clientSocket = listenSocket.accept();
                         busy = true;
 
+                        clientSocket.setSoTimeout(3000);
+
                         out = new PrintWriter(clientSocket.getOutputStream(), true);
                         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
