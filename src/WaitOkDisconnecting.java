@@ -15,6 +15,7 @@ public class WaitOkDisconnecting implements SIPState {
     public void noResponse() {
         System.out.println("noResponse");
         currentState.setCurrentState(currentState.getNotConnected());
+        System.out.println("getNotConnected");
     }
 
     @Override
@@ -46,6 +47,7 @@ public class WaitOkDisconnecting implements SIPState {
     public void gotOk() {
         System.out.println("gotOk");
         currentState.setCurrentState(currentState.getNotConnected());
+        System.out.println("getNotConnected");
     }
 
     @Override

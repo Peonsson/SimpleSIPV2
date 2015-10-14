@@ -19,6 +19,7 @@ public class WaitOkConnecting implements SIPState {
     public void noResponse() {
         System.out.println("noResponse");
         currentState.setCurrentState(currentState.getNotConnected());
+        System.out.println("getNotConnected");
     }
 
     @Override
@@ -48,6 +49,7 @@ public class WaitOkConnecting implements SIPState {
                 gotBusy();
             } else {
                 currentState.setCurrentState(currentState.getNotConnected());
+                System.out.println("getNotConnected");
             }
 
         } catch (IOException e) {
@@ -84,6 +86,7 @@ public class WaitOkConnecting implements SIPState {
     public void gotBusy() {
         System.out.println("gotBusy");
         currentState.setCurrentState(currentState.getNotConnected());
+        System.out.println("getNotConnected");
     }
 
     @Override

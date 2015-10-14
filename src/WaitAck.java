@@ -19,6 +19,7 @@ public class WaitAck implements SIPState {
     public void noResponse() {
         System.out.println("noResponse");
         currentState.setCurrentState(currentState.getNotConnected());
+        System.out.println("getNotConnected");
     }
 
     @Override

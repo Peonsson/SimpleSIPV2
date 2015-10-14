@@ -17,6 +17,7 @@ public class Connected implements SIPState {
     public void noResponse() {
         System.out.println("noResponse");
         currentState.setCurrentState(currentState.getNotConnected());
+        System.out.println("getNotConnected");
     }
 
     @Override
@@ -63,6 +64,7 @@ public class Connected implements SIPState {
         out.println("OK");
         System.out.println("gotBye");
         currentState.setCurrentState(currentState.getNotConnected());
+        System.out.println("getNotConnected");
     }
 
     @Override

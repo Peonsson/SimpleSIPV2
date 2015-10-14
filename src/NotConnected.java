@@ -100,6 +100,7 @@ public class NotConnected implements SIPState {
             currentState.setCurrentState(currentState.getConnecting());
         } else {
             currentState.setCurrentState(currentState.getNotConnected());
+            System.out.println("getNotConnected");
         }
 
     }
