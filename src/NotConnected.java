@@ -38,6 +38,8 @@ public class NotConnected implements SIPState {
             InetAddress host = InetAddress.getByName(parts[3]);
             currentState.setClientSocket(new Socket(host, 5060));
 
+            currentState.getClientSocket().setSoTimeout(3000);
+
             PrintWriter out = currentState.setOut(new PrintWriter(currentState.getClientSocket().getOutputStream(), true));
             currentState.setIn(new BufferedReader(new InputStreamReader(currentState.getClientSocket().getInputStream())));
 
@@ -97,7 +99,9 @@ public class NotConnected implements SIPState {
             System.out.println("gotInvite");
             currentState.setCurrentState(currentState.getConnecting());
         } else {
+            System.err.println("EXPECTED INVITE BUT GOT: " + request);
             currentState.setCurrentState(currentState.getNotConnected());
+            System.out.println("getNotConnected");
         }
 
     }

@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.SocketTimeoutException;
 
 /**
  * Created by Johan Pettersson on 2015-10-09 18:26.
@@ -17,8 +18,10 @@ public class WaitAck implements SIPState {
 
     @Override
     public void noResponse() {
-        System.out.println("noResponse");
+        System.err.println("SocketTimeoutException");
+        currentState.setBusy(false);
         currentState.setCurrentState(currentState.getNotConnected());
+        System.out.println("getNotConnected");
     }
 
     @Override
@@ -62,12 +65,18 @@ public class WaitAck implements SIPState {
 
             if(response.toLowerCase().equals("ack")) {
                 System.out.println("gotAck");
+                currentState.getClientSocket().setSoTimeout(0); //TURN OFF TIMEOUT
                 currentState.setCurrentState(currentState.getConnected());
             } else {
-                out.println("EXPECTED ACK BUT GOT: " + response);
+                System.err.println("EXPECTED ACK BUT GOT: " + response);
+                currentState.setCurrentState(currentState.getNotConnected());
+                System.out.println("getNotConnected");
             }
 
-        } catch (IOException e) {
+        } catch(SocketTimeoutException e) {
+            this.noResponse();
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }

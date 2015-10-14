@@ -13,9 +13,10 @@ public class WaitOkDisconnecting implements SIPState {
 
     @Override
     public void noResponse() {
-        System.out.println("noResponse");
-        //TODO: infinite loop here, need to fix.
-        currentState.setCurrentState(currentState.getConnected());
+        System.err.println("SocketTimeoutException");
+        currentState.setBusy(false);
+        currentState.setCurrentState(currentState.getNotConnected());
+        System.out.println("getNotConnected");
     }
 
     @Override
@@ -47,6 +48,7 @@ public class WaitOkDisconnecting implements SIPState {
     public void gotOk() {
         System.out.println("gotOk");
         currentState.setCurrentState(currentState.getNotConnected());
+        System.out.println("getNotConnected");
     }
 
     @Override

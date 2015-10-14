@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.SocketTimeoutException;
 
 /**
  * Created by Johan Pettersson on 2015-10-09 18:27.
@@ -16,7 +17,10 @@ public class WaitOkConnecting implements SIPState {
 
     @Override
     public void noResponse() {
-        System.err.println("ERROR");
+        System.err.println("SocketTimeoutException");
+        currentState.setBusy(false);
+        currentState.setCurrentState(currentState.getNotConnected());
+        System.out.println("getNotConnected");
     }
 
     @Override
@@ -32,23 +36,28 @@ public class WaitOkConnecting implements SIPState {
     @Override
     public void sendAck() {
         try {
-            String request = currentState.getIn().readLine();
 
-            System.out.println("request: " + request);
+            String request = currentState.getIn().readLine();
 
             if(request.toLowerCase().equals("ok")) {
                 System.out.println("waitOkConnecting");
                 PrintWriter out = currentState.getOut();
                 out.println("ACK");
+                currentState.getClientSocket().setSoTimeout(0);
                 currentState.setCurrentState(currentState.getConnected());
             } else if (request.toLowerCase().equals("busy")) {
                 System.out.println("waitOkConnecting gotBusy");
                 gotBusy();
             } else {
+                System.err.println("EXPECTED OK BUT GOT: " + request);
                 currentState.setCurrentState(currentState.getNotConnected());
+                System.out.println("getNotConnected");
             }
 
-        } catch (IOException e) {
+        } catch (SocketTimeoutException e) {
+            this.noResponse();
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -82,6 +91,7 @@ public class WaitOkConnecting implements SIPState {
     public void gotBusy() {
         System.out.println("gotBusy");
         currentState.setCurrentState(currentState.getNotConnected());
+        System.out.println("getNotConnected");
     }
 
     @Override
