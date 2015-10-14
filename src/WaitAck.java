@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.SocketTimeoutException;
 
 /**
  * Created by Johan Pettersson on 2015-10-09 18:26.
@@ -71,7 +72,10 @@ public class WaitAck implements SIPState {
                 System.out.println("getNotConnected");
             }
 
-        } catch (IOException e) {
+        } catch(SocketTimeoutException e) {
+            this.noResponse();
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
