@@ -155,6 +155,10 @@ public class StateHandler {
         return this.in;
     }
 
+
+    /**
+     * Call initiator. (A)
+     */
     private class ClientHandler extends Thread {
 
         @Override
@@ -212,6 +216,9 @@ public class StateHandler {
         }
     }
 
+    /**
+     * Connecting client's listener. (A)
+     */
     private class ClientHandlerListener extends Thread {
 
         @Override
@@ -234,6 +241,10 @@ public class StateHandler {
         }
     }
 
+
+    /**
+     * Call receiver. (B)
+     */
     private class ClientListener extends Thread {
 
         @Override
@@ -244,6 +255,7 @@ public class StateHandler {
 
                 while (true) {
                     if (busy == false) {
+
                         clientSocket = listenSocket.accept();
                         busy = true;
 
@@ -258,9 +270,12 @@ public class StateHandler {
                                 currentState.gotAck();
                                 if(currentState.getState().toLowerCase().equals("connected")) {
                                     System.out.println("ClientListener: We are now connected.");
+
                                     //TODO: implement audio logic.
-                                    request = in.readLine();
-                                    if(request.toLowerCase().equals("bye")) {
+
+                                    request = in.readLine(); //socket
+
+                                    if(request.toLowerCase().equals("bye")) { //vill ha bye i socket
                                         currentState.gotBye();
                                         if(currentState.getState().toLowerCase().equals("notconnected")) {
                                             busy = false;
