@@ -183,6 +183,7 @@ public class StateHandler {
                     }
                     return;
                 }
+
                 String[] parts = input.split(" ");
 
                 if (parts[0].startsWith("/quit"))
@@ -202,9 +203,33 @@ public class StateHandler {
                 }
 
                 if (currentState.getState().toLowerCase().equals("connected")) {
-                    out.println("We are now connected bro.");
                     busy = true;
+                    System.out.println("ClientHandler: We are now connected.");
+                    //TODO: implement audio logic.
+                    new ClientHandlerListener().start();
                 }
+            }
+        }
+    }
+
+    private class ClientHandlerListener extends Thread {
+
+        @Override
+        public void run() {
+            try {
+                String request = in.readLine();
+                if(request.toLowerCase().equals("bye")) {
+                    currentState.gotBye();
+                    if(currentState.getState().toLowerCase().equals("notconnected")) {
+                        busy = false;
+                    } else {
+                        System.out.println("something went wrong.");
+                    }
+                } else {
+                    return;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -231,6 +256,22 @@ public class StateHandler {
                             currentState.tryConnect();
                             if (currentState.getState().toLowerCase().equals("waitack")) {
                                 currentState.gotAck();
+                                if(currentState.getState().toLowerCase().equals("connected")) {
+                                    System.out.println("ClientListener: We are now connected.");
+                                    //TODO: implement audio logic.
+                                    request = in.readLine();
+                                    if(request.toLowerCase().equals("bye")) {
+                                        currentState.gotBye();
+                                        if(currentState.getState().toLowerCase().equals("notconnected")) {
+                                            busy = false;
+                                            continue;
+                                        } else {
+                                            System.out.println("something went wrong.");
+                                        }
+                                    } else {
+                                        return;
+                                    }
+                                }
                             }
                         }
                     }

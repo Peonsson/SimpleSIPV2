@@ -1,3 +1,5 @@
+import java.io.PrintWriter;
+
 /**
  * Created by Johan Pettersson on 2015-10-09 18:27.
  * Contact: johanp7@kth.se
@@ -33,6 +35,8 @@ public class Connected implements SIPState {
 
     @Override
     public void sendBye() {
+        PrintWriter out = currentState.getOut();
+        out.println("BYE");
         System.out.println("sendBye");
         currentState.setCurrentState(currentState.getWaitOkDisconnecting());
     }
@@ -54,6 +58,8 @@ public class Connected implements SIPState {
 
     @Override
     public void gotBye() {
+        PrintWriter out = currentState.getOut();
+        out.println("OK");
         System.out.println("gotBye");
         currentState.setCurrentState(currentState.getNotConnected());
     }
