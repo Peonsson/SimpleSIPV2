@@ -13,7 +13,7 @@ public class WaitOkDisconnecting implements SIPState {
 
     @Override
     public void noResponse() {
-        System.out.println("noResponse");
+        System.err.println("SocketTimeoutException");
         currentState.setBusy(false);
         currentState.setCurrentState(currentState.getNotConnected());
         System.out.println("getNotConnected");

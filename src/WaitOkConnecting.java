@@ -17,7 +17,7 @@ public class WaitOkConnecting implements SIPState {
 
     @Override
     public void noResponse() {
-        System.out.println("noResponse");
+        System.err.println("SocketTimeoutException");
         currentState.setBusy(false);
         currentState.setCurrentState(currentState.getNotConnected());
         System.out.println("getNotConnected");
@@ -55,9 +55,7 @@ public class WaitOkConnecting implements SIPState {
             }
 
         } catch (SocketTimeoutException e) {
-            System.err.println("SocketTimeoutException");
-            currentState.setCurrentState(currentState.getNotConnected());
-            System.out.println("getNotConnected");
+            this.noResponse();
         }
         catch (IOException e) {
             e.printStackTrace();
