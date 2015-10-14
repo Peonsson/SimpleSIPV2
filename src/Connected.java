@@ -133,7 +133,7 @@ public class Connected implements SIPState {
 
             int remotePort = Integer.parseInt(in.readLine());
 
-            InetAddress address = InetAddress.getByName(currentState.getIp_from());
+            InetAddress address = InetAddress.getByName(currentState.getIp_to());
             stream.connectTo(address, remotePort);
 
             stream.startStreaming();

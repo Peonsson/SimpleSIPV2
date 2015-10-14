@@ -37,6 +37,12 @@ public class NotConnected implements SIPState {
 
         try {
 
+            currentState.setSip_to(parts[1]);
+            currentState.setSip_from(parts[2]);
+            currentState.setIp_to(parts[3]);
+            currentState.setIp_from(parts[4]);
+            currentState.setAudioPort(Integer.parseInt(parts[5]));
+
             InetAddress host = InetAddress.getByName(parts[3]);
             currentState.setClientSocket(new Socket(host, 5060));
 
@@ -101,10 +107,10 @@ public class NotConnected implements SIPState {
 
         if (parts[0].toString().equals("INVITE")) {
 
-            currentState.setSip_to(parts[1].toString());
-            currentState.setSip_from(parts[2].toString());
-            currentState.setIp_to(parts[3].toString());
-            currentState.setIp_from(parts[4].toString());
+            currentState.setSip_to(parts[1]);
+            currentState.setSip_from(parts[2]);
+            currentState.setIp_to(parts[3]);
+            currentState.setIp_from(parts[4]);
             currentState.setAudioPort(Integer.parseInt(parts[5]));
 
             System.out.println("gotInvite");
