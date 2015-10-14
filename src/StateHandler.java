@@ -278,7 +278,6 @@ public class StateHandler {
                                     e.printStackTrace();
                                 }
 
-
                                 currentState.tryConnect();
                                 if (currentState.getState().toLowerCase().equals("waitack")) {
                                     currentState.gotAck();
@@ -293,6 +292,7 @@ public class StateHandler {
                             }
                         } catch (SocketTimeoutException e) {
                             currentState.noResponse();
+                            busy = false;
                         }
                     } else {
                         System.out.println("busy: " + busy);
@@ -303,8 +303,6 @@ public class StateHandler {
                         e.printStackTrace();
                     }
                 }
-            } catch (SocketTimeoutException e) {
-                currentState.noResponse();
             } catch (IOException e) {
                 e.printStackTrace();
             }
