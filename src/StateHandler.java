@@ -175,7 +175,7 @@ public class StateHandler {
 
                     currentState.sendBye();
                     System.out.println("Killing ClientHandler Thread.");
-                    return;
+                    continue;
                 }
 
                 busy = true;
