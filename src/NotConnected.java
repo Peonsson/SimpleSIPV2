@@ -37,7 +37,6 @@ public class NotConnected implements SIPState {
 
         try {
 
-
             InetAddress host = InetAddress.getByName(parts[3]);
             currentState.setClientSocket(new Socket(host, 5060));
 
@@ -46,7 +45,7 @@ public class NotConnected implements SIPState {
             PrintWriter out = currentState.setOut(new PrintWriter(currentState.getClientSocket().getOutputStream(), true));
             currentState.setIn(new BufferedReader(new InputStreamReader(currentState.getClientSocket().getInputStream())));
 
-            out.println(parts);
+            out.println(request);
 
             //TODO: REMOVE.
             System.out.println("sendInvite");
