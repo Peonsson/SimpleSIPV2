@@ -346,7 +346,7 @@ public class StateHandler {
 
                         try {
                             String request = in.readLine();
-
+                            System.out.println("request: " + request);
                             currentState.gotInvite(request);
                             if (currentState.getState().toLowerCase().equals("connecting")) {
                                 currentState.tryConnect();
