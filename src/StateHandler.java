@@ -4,6 +4,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.util.Scanner;
 
 /**
@@ -155,7 +157,6 @@ public class StateHandler {
         return this.in;
     }
 
-
     /**
      * Call initiator. (A)
      */
@@ -170,24 +171,23 @@ public class StateHandler {
 
                 String input = scan.nextLine();
 
-                if (input.toLowerCase().equals("state")) {
-                    System.out.println("state: " + currentState.getState());
-                }
-
                 if (busy == true && input.toLowerCase().equals("bye")) {
 
                     currentState.sendBye();
-                    System.out.println("Killing thread.");
+                    System.out.println("Killing ClientHandler Thread.");
                     return;
                 }
 
+                busy = true;
                 String[] parts = input.split(" ");
 
                 if (parts[0].startsWith("/quit"))
                     System.exit(0);
 
                 else if (parts.length == 6) {
+
                     currentState.sendInvite(parts);
+
                 } else {
                     return;
                 }
@@ -199,7 +199,6 @@ public class StateHandler {
                 }
 
                 if (currentState.getState().toLowerCase().equals("connected")) {
-                    busy = true;
                     System.out.println("ClientHandler: We are now connected.");
 
                     //TODO: implement audio logic.
@@ -221,7 +220,7 @@ public class StateHandler {
 
                 String request = in.readLine(); //läser från socket
 
-                if (request.toLowerCase().equals("bye")) { //om vi läser bye
+                if (currentState.getState().toLowerCase().equals("connected") && request.toLowerCase().equals("bye")) { //om vi läser bye
                     currentState.gotBye();
                     if (currentState.getState().toLowerCase().equals("notconnected")) {
                         busy = false;
@@ -230,16 +229,17 @@ public class StateHandler {
                     }
                 }
 
-                else if (request.toLowerCase().equals("ok")) { //om vi läser ok
+                else if (currentState.getState().toLowerCase().equals("waitokdisconnecting") && request.toLowerCase().equals("ok")) { //om vi läser ok
                     currentState.gotOk();
                     busy = false;
                 }
-
                 else {
                     System.out.println("ClientHandlerListener: something went wrong 2.");
                     return;
                 }
 
+            } catch (SocketTimeoutException e) {
+                currentState.noResponse();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -282,8 +282,17 @@ public class StateHandler {
                             }
                         }
                     }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-            } catch (IOException e) {
+            }
+            catch (SocketTimeoutException e) {
+                currentState.noResponse();
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }

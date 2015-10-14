@@ -38,6 +38,8 @@ public class NotConnected implements SIPState {
             InetAddress host = InetAddress.getByName(parts[3]);
             currentState.setClientSocket(new Socket(host, 5060));
 
+            currentState.getClientSocket().setSoTimeout(3000);
+
             PrintWriter out = currentState.setOut(new PrintWriter(currentState.getClientSocket().getOutputStream(), true));
             currentState.setIn(new BufferedReader(new InputStreamReader(currentState.getClientSocket().getInputStream())));
 

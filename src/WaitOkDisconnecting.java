@@ -14,8 +14,7 @@ public class WaitOkDisconnecting implements SIPState {
     @Override
     public void noResponse() {
         System.out.println("noResponse");
-        //TODO: infinite loop here, need to fix.
-        currentState.setCurrentState(currentState.getConnected());
+        currentState.setCurrentState(currentState.getNotConnected());
     }
 
     @Override
