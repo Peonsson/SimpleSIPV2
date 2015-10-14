@@ -171,28 +171,14 @@ public class StateHandler {
                 String input = scan.nextLine();
                 System.out.println("input: " + input);
 
-                if(input.toLowerCase().equals("state")) {
+                if (input.toLowerCase().equals("state")) {
                     System.out.println("state: " + currentState.getState());
                 }
 
                 if (busy == true && input.toLowerCase().equals("bye")) {
 
                     currentState.sendBye();
-                    System.out.println("herpa");
-                    if(currentState.getState().toLowerCase().equals("waitokdisconnecting")) {
-                        try {
-                            System.out.println("derpa");
-                            String input2 = in.readLine(); //waits for ok
-                            System.out.println("input: " + input2);
-                            if(input2.toLowerCase().equals("ok")) {
-                                currentState.gotOk();
-                                busy = false;
-                                continue;
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    System.out.println("Killing thread.");
                     return;
                 }
 
@@ -231,17 +217,28 @@ public class StateHandler {
         @Override
         public void run() {
             try {
-                String request = in.readLine();
-                if(request.toLowerCase().equals("bye")) {
+
+                String request = in.readLine(); //läser från socket
+
+                if (request.toLowerCase().equals("bye")) { //om vi läser bye
                     currentState.gotBye();
-                    if(currentState.getState().toLowerCase().equals("notconnected")) {
+                    if (currentState.getState().toLowerCase().equals("notconnected")) {
                         busy = false;
                     } else {
-                        System.out.println("something went wrong.");
+                        System.out.println("ClientHandlerListener: something went wrong 1.");
                     }
-                } else {
+                }
+
+                else if (request.toLowerCase().equals("ok")) { //om vi läser ok
+                    currentState.gotOk();
+                    busy = false;
+                }
+
+                else {
+                    System.out.println("ClientHandlerListener: something went wrong 2.");
                     return;
                 }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -275,17 +272,17 @@ public class StateHandler {
                             currentState.tryConnect();
                             if (currentState.getState().toLowerCase().equals("waitack")) {
                                 currentState.gotAck();
-                                if(currentState.getState().toLowerCase().equals("connected")) {
+                                if (currentState.getState().toLowerCase().equals("connected")) {
                                     System.out.println("ClientListener: We are now connected.");
 
                                     //TODO: implement audio logic.
 
                                     request = in.readLine(); //socket
 
-                                    if(request.toLowerCase().equals("bye")) { //vill ha bye i socket
+                                    if (request.toLowerCase().equals("bye")) { //vill ha bye i socket
                                         currentState.gotBye();
                                         System.out.println("changed to gotBye state");
-                                        if(currentState.getState().toLowerCase().equals("notconnected")) {
+                                        if (currentState.getState().toLowerCase().equals("notconnected")) {
                                             busy = false;
                                             continue;
                                         } else {
