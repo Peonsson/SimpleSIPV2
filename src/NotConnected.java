@@ -99,6 +99,7 @@ public class NotConnected implements SIPState {
             System.out.println("gotInvite");
             currentState.setCurrentState(currentState.getConnecting());
         } else {
+            System.err.println("EXPECTED INVITE BUT GOT: " + request);
             currentState.setCurrentState(currentState.getNotConnected());
             System.out.println("getNotConnected");
         }
