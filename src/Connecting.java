@@ -24,7 +24,7 @@ public class Connecting implements SIPState {
         System.out.println("tryConnect");
 
         PrintWriter out = currentState.getOut();
-        out.println("OK FEL");
+        out.println("OK");
 
         currentState.setCurrentState(currentState.getWaitAck());
     }
