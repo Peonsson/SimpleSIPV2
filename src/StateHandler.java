@@ -265,12 +265,6 @@ public class StateHandler {
 
                     currentState.sendInvite(input);
 
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
                 } else {
                     return;
                 }

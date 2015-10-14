@@ -100,18 +100,18 @@ public class NotConnected implements SIPState {
 
         String[] parts = request.split(" ");
 
-        if (parts[0].equals("INVITE")) {
+        if (parts[0].toString().equals("INVITE")) {
 
-            currentState.setSip_to(parts[1]);
-            currentState.setSip_from(parts[2]);
-            currentState.setIp_to(parts[3]);
-            currentState.setIp_from(parts[4]);
+            currentState.setSip_to(parts[1].toString());
+            currentState.setSip_from(parts[2].toString());
+            currentState.setIp_to(parts[3].toString());
+            currentState.setIp_from(parts[4].toString());
             currentState.setAudioPort(Integer.parseInt(parts[5]));
 
             System.out.println("gotInvite");
             currentState.setCurrentState(currentState.getConnecting());
         } else {
-            System.err.println("EXPECTED INVITE BUT GOT: " + parts[0]);
+            System.err.println("EXPECTED INVITE BUT GOT: " + parts[0].toString());
             currentState.setCurrentState(currentState.getNotConnected());
             System.out.println("getNotConnected");
         }
