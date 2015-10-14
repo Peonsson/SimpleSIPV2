@@ -169,6 +169,7 @@ public class StateHandler {
             while (true) {
 
                 String input = scan.nextLine();
+                System.out.println("input: " + input);
 
                 if(input.toLowerCase().equals("state")) {
                     System.out.println("state: " + currentState.getState());
@@ -177,12 +178,15 @@ public class StateHandler {
                 if (busy == true && input.toLowerCase().equals("bye")) {
 
                     currentState.sendBye();
-
+                    System.out.println("herpa");
                     if(currentState.getState().toLowerCase().equals("waitokdisconnecting")) {
                         try {
-                            input = in.readLine();
-                            if(input.toLowerCase().equals("ok")) {
+                            System.out.println("derpa");
+                            String input2 = in.readLine(); //waits for ok
+                            System.out.println("input: " + input2);
+                            if(input2.toLowerCase().equals("ok")) {
                                 currentState.gotOk();
+                                busy = false;
                                 continue;
                             }
                         } catch (IOException e) {
@@ -280,6 +284,7 @@ public class StateHandler {
 
                                     if(request.toLowerCase().equals("bye")) { //vill ha bye i socket
                                         currentState.gotBye();
+                                        System.out.println("changed to gotBye state");
                                         if(currentState.getState().toLowerCase().equals("notconnected")) {
                                             busy = false;
                                             continue;
