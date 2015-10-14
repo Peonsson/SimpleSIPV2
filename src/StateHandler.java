@@ -233,6 +233,7 @@ public class StateHandler {
                     currentState.gotOk();
                     busy = false;
                 }
+
                 else {
                     System.out.println("ClientHandlerListener: something went wrong 2.");
                     return;
@@ -260,6 +261,7 @@ public class StateHandler {
                 while (true) {
                     if (busy == false) {
 
+                        System.out.println("listening..");
                         clientSocket = listenSocket.accept();
                         busy = true;
 
