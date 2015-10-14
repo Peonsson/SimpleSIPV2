@@ -169,7 +169,6 @@ public class StateHandler {
             while (true) {
 
                 String input = scan.nextLine();
-                System.out.println("input: " + input);
 
                 if (input.toLowerCase().equals("state")) {
                     System.out.println("state: " + currentState.getState());
@@ -202,7 +201,9 @@ public class StateHandler {
                 if (currentState.getState().toLowerCase().equals("connected")) {
                     busy = true;
                     System.out.println("ClientHandler: We are now connected.");
+
                     //TODO: implement audio logic.
+
                     new ClientHandlerListener().start();
                 }
             }
@@ -245,7 +246,6 @@ public class StateHandler {
         }
     }
 
-
     /**
      * Call receiver. (B)
      */
@@ -277,20 +277,7 @@ public class StateHandler {
 
                                     //TODO: implement audio logic.
 
-                                    request = in.readLine(); //socket
-
-                                    if (request.toLowerCase().equals("bye")) { //vill ha bye i socket
-                                        currentState.gotBye();
-                                        System.out.println("changed to gotBye state");
-                                        if (currentState.getState().toLowerCase().equals("notconnected")) {
-                                            busy = false;
-                                            continue;
-                                        } else {
-                                            System.out.println("something went wrong.");
-                                        }
-                                    } else {
-                                        return;
-                                    }
+                                    new ClientHandlerListener().start();
                                 }
                             }
                         }
