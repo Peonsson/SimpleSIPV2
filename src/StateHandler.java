@@ -28,9 +28,18 @@ public class StateHandler {
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
+    AudioStreamUDP stream = null;
+
 
     private final int SERVER_PORT = 5060;
     private boolean busy = false;
+
+    private String invite;
+    private String sip_to;
+    private String sip_from;
+    private String ip_to;
+    private String ip_from;
+    private int audioPort;
 
     public StateHandler() {
 
@@ -45,6 +54,62 @@ public class StateHandler {
 
         new ClientListener().start();
         new ClientHandler().start();
+    }
+
+    public AudioStreamUDP getStream() {
+        return stream;
+    }
+
+    public void setStream(AudioStreamUDP stream) {
+        this.stream = stream;
+    }
+
+    public String getInvite() {
+        return invite;
+    }
+
+    public void setInvite(String invite) {
+        this.invite = invite;
+    }
+
+    public String getSip_to() {
+        return sip_to;
+    }
+
+    public void setSip_to(String sip_to) {
+        this.sip_to = sip_to;
+    }
+
+    public String getSip_from() {
+        return sip_from;
+    }
+
+    public void setSip_from(String sip_from) {
+        this.sip_from = sip_from;
+    }
+
+    public String getIp_to() {
+        return ip_to;
+    }
+
+    public void setIp_to(String ip_to) {
+        this.ip_to = ip_to;
+    }
+
+    public String getIp_from() {
+        return ip_from;
+    }
+
+    public void setIp_from(String ip_from) {
+        this.ip_from = ip_from;
+    }
+
+    public int getAudioPort() {
+        return audioPort;
+    }
+
+    public void setAudioPort(int audioPort) {
+        this.audioPort = audioPort;
     }
 
     public boolean isBusy() {
@@ -67,8 +132,8 @@ public class StateHandler {
         currentState.tryConnect();
     }
 
-    public void sendInvite(String[] parts) {
-        currentState.sendInvite(parts);
+    public void sendInvite(String request) {
+        currentState.sendInvite(request);
     }
 
     public void sendAck() {
@@ -184,6 +249,10 @@ public class StateHandler {
                     currentState.sendBye();
                     System.out.println("Killing ClientHandler Thread.");
                     continue;
+                } else if(busy == true && input.toLowerCase().equals("stop")) {
+
+                    stream.stopStreaming();
+                    //TODO: change state.
                 }
 
                 busy = true;
@@ -194,13 +263,7 @@ public class StateHandler {
 
                 else if (parts.length == 6) {
 
-                    currentState.sendInvite(parts);
-
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    currentState.sendInvite(input);
 
                 } else {
                     return;
@@ -216,6 +279,7 @@ public class StateHandler {
                     System.out.println("ClientHandler: We are now connected.");
 
                     //TODO: implement audio logic.
+                    currentState.receiveCall();
 
                     new ClientHandlerListener().start();
                 }
@@ -282,7 +346,7 @@ public class StateHandler {
 
                         try {
                             String request = in.readLine();
-
+                            System.out.println("request: " + request);
                             currentState.gotInvite(request);
                             if (currentState.getState().toLowerCase().equals("connecting")) {
                                 currentState.tryConnect();
@@ -292,7 +356,7 @@ public class StateHandler {
                                         System.out.println("ClientListener: We are now connected.");
 
                                         //TODO: implement audio logic.
-
+                                        currentState.startCall();
                                         new ClientHandlerListener().start();
                                     }
                                 }

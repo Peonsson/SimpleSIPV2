@@ -7,7 +7,7 @@ public interface SIPState {
 
     public void noResponse();
     public void tryConnect();
-    public void sendInvite(String[] parts);
+    public void sendInvite(String request);
     public void sendAck();
     public void sendBye();
     public void sendOk();
@@ -15,7 +15,8 @@ public interface SIPState {
     public void gotAck();
     public void gotBye();
     public void gotBusy();
-    public void gotInvite(String request);
+    public void gotInvite(String response);
     public String getState();
-
+    public void startCall();
+    public void receiveCall();
 }

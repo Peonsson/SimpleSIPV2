@@ -31,9 +31,17 @@ public class NotConnected implements SIPState {
     }
 
     @Override
-    public void sendInvite(String[] parts) {
+    public void sendInvite(String request) {
+
+        String[] parts = request.split(" ");
 
         try {
+
+            currentState.setSip_to(parts[1]);
+            currentState.setSip_from(parts[2]);
+            currentState.setIp_to(parts[3]);
+            currentState.setIp_from(parts[4]);
+            currentState.setAudioPort(Integer.parseInt(parts[5]));
 
             InetAddress host = InetAddress.getByName(parts[3]);
             currentState.setClientSocket(new Socket(host, 5060));
@@ -43,7 +51,7 @@ public class NotConnected implements SIPState {
             PrintWriter out = currentState.setOut(new PrintWriter(currentState.getClientSocket().getOutputStream(), true));
             currentState.setIn(new BufferedReader(new InputStreamReader(currentState.getClientSocket().getInputStream())));
 
-            out.println("INVITE");
+            out.println(request);
 
             //TODO: REMOVE.
             System.out.println("sendInvite");
@@ -95,11 +103,20 @@ public class NotConnected implements SIPState {
     @Override
     public void gotInvite(String request) {
 
-        if (request.equals("INVITE")) {
+        String[] parts = request.split(" ");
+
+        if (parts[0].toString().equals("INVITE")) {
+
+            currentState.setSip_to(parts[1]);
+            currentState.setSip_from(parts[2]);
+            currentState.setIp_to(parts[3]);
+            currentState.setIp_from(parts[4]);
+            currentState.setAudioPort(Integer.parseInt(parts[5]));
+
             System.out.println("gotInvite");
             currentState.setCurrentState(currentState.getConnecting());
         } else {
-            System.err.println("EXPECTED INVITE BUT GOT: " + request);
+            System.err.println("EXPECTED INVITE BUT GOT: " + parts[0].toString());
             currentState.setCurrentState(currentState.getNotConnected());
             System.out.println("getNotConnected");
         }
@@ -109,5 +126,15 @@ public class NotConnected implements SIPState {
     @Override
     public String getState() {
         return "NotConnected";
+    }
+
+    @Override
+    public void startCall() {
+        System.err.println("ERROR");
+    }
+
+    @Override
+    public void receiveCall() {
+        System.err.println("ERROR");
     }
 }

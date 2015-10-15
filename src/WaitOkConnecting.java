@@ -29,7 +29,7 @@ public class WaitOkConnecting implements SIPState {
     }
 
     @Override
-    public void sendInvite(String[] parts) {
+    public void sendInvite(String request) {
         System.err.println("ERROR");
     }
 
@@ -102,5 +102,15 @@ public class WaitOkConnecting implements SIPState {
     @Override
     public String getState() {
         return "WaitOkConnecting";
+    }
+
+    @Override
+    public void startCall() {
+        System.err.println("ERROR");
+    }
+
+    @Override
+    public void receiveCall() {
+        System.err.println("ERROR");
     }
 }

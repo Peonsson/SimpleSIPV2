@@ -1,4 +1,8 @@
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.util.Scanner;
 
 /**
  * Created by Johan Pettersson on 2015-10-09 18:27.
@@ -27,7 +31,7 @@ public class Connected implements SIPState {
     }
 
     @Override
-    public void sendInvite(String[] parts) {
+    public void sendInvite(String request) {
         System.err.println("ERROR");
     }
 
@@ -81,5 +85,64 @@ public class Connected implements SIPState {
     @Override
     public String getState() {
         return "Connected";
+    }
+
+    @Override
+    public void startCall() {
+
+        Scanner scan = new Scanner(System.in);
+        AudioStreamUDP stream = null;
+
+        try {
+            currentState.setStream(new AudioStreamUDP());
+            stream = currentState.getStream();
+
+            int localPort = stream.getLocalPort();
+
+            PrintWriter out = currentState.getOut();
+
+            System.out.println("Bound to local port = " + localPort);
+            out.println(localPort);
+
+            int remotePort = currentState.getAudioPort();
+            InetAddress address = InetAddress.getByName(currentState.getIp_from());
+            stream.connectTo(address, remotePort);
+
+            stream.startStreaming();
+            System.out.println("Press ANY key to stop streaming");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            stream.close();
+        }
+    }
+
+    @Override
+    public void receiveCall() {
+
+        Scanner scan = new Scanner(System.in);
+        AudioStreamUDP stream = null;
+
+        try {
+
+            currentState.setStream(new AudioStreamUDP());
+            stream = currentState.getStream();
+
+            BufferedReader in = currentState.getIn();
+
+            int remotePort = Integer.parseInt(in.readLine());
+
+            InetAddress address = InetAddress.getByName(currentState.getIp_to());
+            stream.connectTo(address, remotePort);
+
+            stream.startStreaming();
+            System.out.println("Press ANY key to stop streaming");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            stream.close();
+        }
     }
 }
