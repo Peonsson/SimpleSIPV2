@@ -100,8 +100,6 @@ public class Connected implements SIPState {
 
         AudioStreamUDP stream = currentState.getStream();
 
-        Scanner scan = new Scanner(System.in);
-
         try {
 
             PrintWriter out = currentState.getOut();

@@ -263,7 +263,6 @@ public class StateHandler {
                     currentState.sendBye();
                     continue;
                 }
-
                 busy = true;
                 String[] parts = input.split(" ");
 
@@ -273,15 +272,12 @@ public class StateHandler {
                 else if (parts.length == 6) {
                     System.out.println("input : " + input);
                     currentState.sendInvite(input);
-
                 } else {
                     return;
                 }
 
                 currentState.sendAck();
                 System.out.println("ClientHandler: We are now connected.");
-
-                // TODO: implement audio logic here
 
                 currentState.receiveCall();
 

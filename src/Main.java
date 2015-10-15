@@ -8,30 +8,5 @@ public class Main {
 
         StateHandler handler = new StateHandler();
 
-//        handler.sendInvite();
-//        handler.sendAck();
-//        handler.sendBye();
-//        handler.gotOk();
-//        handler.tryConnect();
-
-//        handler.gotInvite();
-//        handler.tryConnect();
-//        handler.gotAck();
-//        handler.gotBye();
-
-//        handler.gotInvite();
-//        handler.tryConnect();
-//        handler.noResponse();
-
-//        handler.gotInvite();
-//        handler.noResponse();
-
-//        handler.sendInvite();
-//        handler.gotBusy();
-
-//        handler.sendInvite();
-//        handler.sendAck();
-//        handler.sendBye();
-//        handler.noResponse();
     }
 }
