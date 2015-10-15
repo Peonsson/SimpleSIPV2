@@ -33,8 +33,6 @@ public class NotConnected implements SIPState {
     @Override
     public void sendInvite(String request) {
 
-        System.out.println("invite not connected: " + request);
-
         String[] parts = request.split(" ");
 
         try {
@@ -55,7 +53,6 @@ public class NotConnected implements SIPState {
 
             out.println(request);
 
-            //TODO: REMOVE.
             System.out.println("sendInvite");
 
             currentState.setCurrentState(currentState.getWaitOkConnecting());
@@ -106,7 +103,6 @@ public class NotConnected implements SIPState {
     public void gotInvite() {
 
         BufferedReader in = currentState.getIn();
-        PrintWriter out = currentState.getOut();
         String request = null;
 
         try {

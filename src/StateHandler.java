@@ -299,20 +299,20 @@ public class StateHandler {
         public void run() {
             try {
 
-                String request = in.readLine(); //l�ser fr�n socket
+                String request = in.readLine();
 
                 if (currentState.getState().toLowerCase().equals("connected") && request.toLowerCase().equals("bye")) { //om vi l�ser bye
                     currentState.gotBye();
                     if (currentState.getState().toLowerCase().equals("notconnected")) {
                         busy = false;
                     } else {
-                        System.out.println("ClientHandlerListener: something went wrong 1.");
+                        System.err.println("ClientHandlerListener: something went wrong 1.");
                     }
                 } else if (currentState.getState().toLowerCase().equals("waitokdisconnecting") && request.toLowerCase().equals("ok")) { //om vi l�ser ok
                     currentState.gotOk();
                     busy = false;
                 } else {
-                    System.out.println("ClientHandlerListener: something went wrong 2.");
+                    System.err.println("ClientHandlerListener: something went wrong 2.");
                     return;
                 }
 
