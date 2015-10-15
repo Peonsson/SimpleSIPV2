@@ -312,7 +312,11 @@ public class StateHandler {
                     return;
                 }
 
-            } catch (SocketTimeoutException e) {
+            } catch (NullPointerException e) {
+                System.err.println("Connection terminated unexpectedly.");
+                currentState.noResponse();
+            }
+            catch (SocketTimeoutException e) {
                 currentState.noResponse();
             } catch (IOException e) {
                 e.printStackTrace();
