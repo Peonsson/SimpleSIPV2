@@ -262,15 +262,14 @@ public class StateHandler {
                 if (busy == true && input.toLowerCase().equals("bye")) {
                     currentState.sendBye();
                     continue;
+                } else if(busy == true) {
+                    System.err.println("Unexpected command.");
+                    continue;
                 }
                 busy = true;
                 String[] parts = input.split(" ");
 
-                if (parts[0].startsWith("/quit"))
-                    System.exit(0);
-
-                else if (parts.length == 6) {
-                    System.out.println("input : " + input);
+                if (parts.length == 6 && parts[0].equals("INVITE")) {
                     currentState.sendInvite(input);
                 } else {
                     return;
