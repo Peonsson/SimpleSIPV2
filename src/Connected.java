@@ -112,14 +112,10 @@ public class Connected implements SIPState {
             System.out.println("startCall: address: " + currentState.getIp_from() + ", port: " + remotePort);
             stream.connectTo(host, remotePort);
 
-            System.out.println("---ENTER TO START STREAMING---");
-            String reply = scan.nextLine();
-
             stream.startStreaming();
 
-            System.out.println("Press ANY key to stop streaming");
-
-            reply = scan.nextLine();
+            System.out.println("STREAMING.. Press ANY key to stop streaming");
+            String reply = scan.nextLine();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -154,13 +150,10 @@ public class Connected implements SIPState {
 
             stream.connectTo(address, remotePort);
 
-            System.out.println("---ENTER TO START STREAMING---");
-            String reply = scan.nextLine();
             stream.startStreaming();
 
-            reply = scan.nextLine();
-
-            System.out.println("Press ANY key to stop streaming");
+            System.out.println("STREAMING.. Press ANY key to stop streaming");
+            String reply = scan.nextLine();
 
         } catch (IOException e) {
             e.printStackTrace();
