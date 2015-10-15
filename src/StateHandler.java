@@ -38,6 +38,8 @@ public class StateHandler {
     private int localAudioPort;
     private int remoteAudioPort;
 
+    private boolean talking = false;
+
     public StateHandler() {
 
         notConnected = new NotConnected(this);
@@ -51,6 +53,14 @@ public class StateHandler {
 
         new ClientListener().start();
         new ClientHandler().start();
+    }
+
+    public boolean isTalking() {
+        return talking;
+    }
+
+    public void setTalking(boolean talking) {
+        this.talking = talking;
     }
 
     public int getRemoteAudioPort() {
@@ -277,7 +287,9 @@ public class StateHandler {
                 System.out.println("ClientHandler: We are now connected.");
 
                 // TODO: implement audio logic here
+
                 currentState.receiveCall();
+
                 new ClientHandlerListener().start();
 
 //                if (currentState.getState().toLowerCase().equals("waitokconnecting")) {

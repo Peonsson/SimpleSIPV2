@@ -114,13 +114,8 @@ public class Connected implements SIPState {
 
             stream.startStreaming();
 
-            System.out.println("STREAMING.. Press ANY key to stop streaming");
-            String reply = scan.nextLine();
-
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            stream.close();
         }
     }
 
@@ -152,13 +147,9 @@ public class Connected implements SIPState {
 
             stream.startStreaming();
 
-            System.out.println("STREAMING.. Press ANY key to stop streaming");
-            String reply = scan.nextLine();
 
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            stream.close();
         }
     }
 }
