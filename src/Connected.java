@@ -91,24 +91,27 @@ public class Connected implements SIPState {
     public void startCall() {
 
         Scanner scan = new Scanner(System.in);
-        AudioStreamUDP stream = null;
 
         try {
-            currentState.setStream(new AudioStreamUDP());
-            stream = currentState.getStream();
+            currentState.setStream(new AudioStreamUDP(currentState.getLocalAudioPort()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-            int localPort = stream.getLocalPort();
+        AudioStreamUDP stream = currentState.getStream();
+
+        try {
 
             PrintWriter out = currentState.getOut();
+            out.println(stream.getLocalPort());
 
-            System.out.println("Bound to local port = " + localPort);
-            out.println(localPort);
+            int remotePort = currentState.getRemoteAudioPort();
+            InetAddress host = InetAddress.getByName(currentState.getIp_from());
 
-            int remotePort = currentState.getAudioPort();
-            InetAddress address = InetAddress.getByName(currentState.getIp_from());
-            stream.connectTo(address, remotePort);
+            stream.connectTo(host, remotePort);
 
             stream.startStreaming();
+
             System.out.println("Press ANY key to stop streaming");
 
         } catch (IOException e) {
@@ -122,21 +125,24 @@ public class Connected implements SIPState {
     public void receiveCall() {
 
         Scanner scan = new Scanner(System.in);
-        AudioStreamUDP stream = null;
 
         try {
+            currentState.setStream(new AudioStreamUDP(currentState.getLocalAudioPort()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-            currentState.setStream(new AudioStreamUDP());
-            stream = currentState.getStream();
+        AudioStreamUDP stream = currentState.getStream();
 
+        try {
             BufferedReader in = currentState.getIn();
-
             int remotePort = Integer.parseInt(in.readLine());
-
             InetAddress address = InetAddress.getByName(currentState.getIp_to());
+
             stream.connectTo(address, remotePort);
 
             stream.startStreaming();
+
             System.out.println("Press ANY key to stop streaming");
 
         } catch (IOException e) {

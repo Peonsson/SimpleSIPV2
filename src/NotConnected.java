@@ -43,7 +43,7 @@ public class NotConnected implements SIPState {
             currentState.setSip_from(parts[2]);
             currentState.setIp_to(parts[3]);
             currentState.setIp_from(parts[4]);
-            currentState.setAudioPort(Integer.parseInt(parts[5]));
+            currentState.setLocalAudioPort(Integer.parseInt(parts[5]));
 
             InetAddress host = InetAddress.getByName(parts[3]);
             currentState.setClientSocket(new Socket(host, 5060));
@@ -124,17 +124,16 @@ public class NotConnected implements SIPState {
             currentState.setSip_from(parts[2]);
             currentState.setIp_to(parts[3]);
             currentState.setIp_from(parts[4]);
-            currentState.setAudioPort(Integer.parseInt(parts[5]));
+            currentState.setRemoteAudioPort(Integer.parseInt(parts[5]));
 
             System.out.println("gotInvite");
-            out.println("OK");
+//            out.println("OK");
             currentState.setCurrentState(currentState.getConnecting());
         } else {
             System.err.println("EXPECTED INVITE BUT GOT: " + parts[0].toString());
             currentState.setCurrentState(currentState.getNotConnected());
             System.out.println("getNotConnected");
         }
-
     }
 
     @Override

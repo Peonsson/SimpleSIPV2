@@ -14,8 +14,8 @@ public class AudioStreamUDP {
     public static final boolean DEBUG = false;
     public static final int TIME_OUT = 5000; // Time out for receiving packets
 
-    public AudioStreamUDP() throws IOException {
-        this.receiverSocket = new DatagramSocket();
+    public AudioStreamUDP(int port) throws IOException {
+        this.receiverSocket = new DatagramSocket(port);
         //receiverSocket.setSoTimeout(TIME_OUT);
         this.senderSocket = new DatagramSocket();
 

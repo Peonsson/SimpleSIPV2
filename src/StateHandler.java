@@ -27,7 +27,6 @@ public class StateHandler {
     private BufferedReader in;
     AudioStreamUDP stream = null;
 
-
     private final int SERVER_PORT = 5060;
     private boolean busy = false;
 
@@ -36,7 +35,8 @@ public class StateHandler {
     private String sip_from;
     private String ip_to;
     private String ip_from;
-    private int audioPort;
+    private int localAudioPort;
+    private int remoteAudioPort;
 
     public StateHandler() {
 
@@ -51,6 +51,22 @@ public class StateHandler {
 
         new ClientListener().start();
         new ClientHandler().start();
+    }
+
+    public int getRemoteAudioPort() {
+        return remoteAudioPort;
+    }
+
+    public void setRemoteAudioPort(int remoteAudioPort) {
+        this.remoteAudioPort = remoteAudioPort;
+    }
+
+    public int getLocalAudioPort() {
+        return localAudioPort;
+    }
+
+    public void setLocalAudioPort(int localAudioPort) {
+        this.localAudioPort = localAudioPort;
     }
 
     public AudioStreamUDP getStream() {
@@ -99,14 +115,6 @@ public class StateHandler {
 
     public void setIp_from(String ip_from) {
         this.ip_from = ip_from;
-    }
-
-    public int getAudioPort() {
-        return audioPort;
-    }
-
-    public void setAudioPort(int audioPort) {
-        this.audioPort = audioPort;
     }
 
     public boolean isBusy() {
@@ -266,14 +274,12 @@ public class StateHandler {
                     return;
                 }
 
-
                 currentState.sendAck();
                 System.out.println("ClientHandler: We are now connected.");
 
                 // TODO: implement audio logic here
                 currentState.receiveCall();
                 new ClientHandlerListener().start();
-
 
 //                if (currentState.getState().toLowerCase().equals("waitokconnecting")) {
 //                    currentState.sendAck();
@@ -351,7 +357,6 @@ public class StateHandler {
                         out = new PrintWriter(clientSocket.getOutputStream(), true);
                         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-
                         currentState.gotInvite();
                         currentState.tryConnect();
                         currentState.gotAck();
@@ -359,7 +364,6 @@ public class StateHandler {
                         new ClientHandlerListener().start();
 
                         System.out.println("busy: " + busy);
-
 
 //                        try {
 //                            String request = in.readLine();
