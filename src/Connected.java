@@ -103,6 +103,7 @@ public class Connected implements SIPState {
         try {
 
             PrintWriter out = currentState.getOut();
+            System.out.println("stream.getLocalPort: " + stream.getLocalPort());
             out.println(stream.getLocalPort());
 
             int remotePort = currentState.getRemoteAudioPort();
@@ -142,6 +143,7 @@ public class Connected implements SIPState {
 
             BufferedReader in = currentState.getIn();
             int remotePort = Integer.parseInt(in.readLine());
+            System.out.println("remotePort: " + remotePort);
 
             InetAddress address = InetAddress.getByName(currentState.getIp_to());
 
