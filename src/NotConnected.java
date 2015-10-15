@@ -33,6 +33,8 @@ public class NotConnected implements SIPState {
     @Override
     public void sendInvite(String request) {
 
+        System.out.println("invite not connected: " + request);
+
         String[] parts = request.split(" ");
 
         try {

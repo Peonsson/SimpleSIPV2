@@ -262,7 +262,7 @@ public class StateHandler {
                     System.exit(0);
 
                 else if (parts.length == 6) {
-
+                    System.out.println("input : " + input);
                     currentState.sendInvite(input);
 
                 } else {
@@ -350,8 +350,8 @@ public class StateHandler {
 
                         clientSocket.setSoTimeout(3000);
 
-//                        out = new PrintWriter(clientSocket.getOutputStream(), true);
-//                        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                        out = new PrintWriter(clientSocket.getOutputStream(), true);
+                        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
 
                         currentState.gotInvite();

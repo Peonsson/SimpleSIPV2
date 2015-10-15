@@ -27,25 +27,10 @@ public class Connecting implements SIPState {
     public void tryConnect() {
         System.out.println("tryConnect");
 
-        BufferedReader in = currentState.getIn();
         PrintWriter out = currentState.getOut();
-        String request = null;
 
-        try {
-            request = in.readLine();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (request.toLowerCase().equals("invite")) {
-            out.println("OK");
-            currentState.setCurrentState(currentState.getWaitAck());
-        }
-        else {
-            System.out.println("EXPECTED INVITE BUT GOT: " + request);
-            currentState.setCurrentState(currentState.getNotConnected());
-        }
+        out.println("OK");
+        currentState.setCurrentState(currentState.getWaitAck());
     }
 
     @Override
