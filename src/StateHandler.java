@@ -266,6 +266,7 @@ public class StateHandler {
                     System.err.println("Unexpected command.");
                     continue;
                 }
+
                 busy = true;
                 String[] parts = input.split(" ");
 

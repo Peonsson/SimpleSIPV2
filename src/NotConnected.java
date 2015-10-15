@@ -23,7 +23,9 @@ public class NotConnected implements SIPState {
 
     @Override
     public void noResponse() {
-        System.err.println("ERROR");
+        currentState.setBusy(false);
+        currentState.setCurrentState(currentState.getNotConnected());
+        System.out.println("getNotConnected");
     }
 
     @Override
