@@ -1,4 +1,7 @@
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.Buffer;
 
 /**
  * Created by Johan Pettersson on 2015-10-09 18:26.
@@ -24,10 +27,25 @@ public class Connecting implements SIPState {
     public void tryConnect() {
         System.out.println("tryConnect");
 
+        BufferedReader in = currentState.getIn();
         PrintWriter out = currentState.getOut();
-        out.println("OK");
+        String request = null;
 
-        currentState.setCurrentState(currentState.getWaitAck());
+        try {
+            request = in.readLine();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (request.toLowerCase().equals("invite")) {
+            out.println("OK");
+            currentState.setCurrentState(currentState.getWaitAck());
+        }
+        else {
+            System.out.println("EXPECTED INVITE BUT GOT: " + request);
+            currentState.setCurrentState(currentState.getNotConnected());
+        }
     }
 
     @Override

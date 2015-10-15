@@ -58,7 +58,6 @@ public class WaitAck implements SIPState {
     public void gotAck() {
 
         BufferedReader in = currentState.getIn();
-        PrintWriter out = currentState.getOut();
 
         try {
             String response = in.readLine();
