@@ -261,12 +261,7 @@ public class StateHandler {
 
                 if (busy == true && input.toLowerCase().equals("bye")) {
                     currentState.sendBye();
-                    System.out.println("Killing ClientHandler Thread.");
                     continue;
-                } else if(busy == true && input.toLowerCase().equals("stop")) {
-
-                    stream.stopStreaming();
-                    //TODO: change state.
                 }
 
                 busy = true;
