@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.SocketTimeoutException;
@@ -36,11 +37,11 @@ public class WaitOkConnecting implements SIPState {
     @Override
     public void sendAck() {
         try {
-
-            String request = currentState.getIn().readLine();
+            BufferedReader in = currentState.getIn();
+            String request = in.readLine();
 
             if(request.toLowerCase().equals("ok")) {
-                System.out.println("waitOkConnecting");
+                System.out.println("sendAck: gotOk");
                 PrintWriter out = currentState.getOut();
                 out.println("ACK");
                 currentState.getClientSocket().setSoTimeout(0);

@@ -48,7 +48,6 @@ public class WaitAck implements SIPState {
     public void sendOk() {
         System.err.println("ERROR5");
     }
-
     @Override
     public void gotOk() {
         System.err.println("ERROR6");

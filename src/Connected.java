@@ -124,8 +124,6 @@ public class Connected implements SIPState {
     @Override
     public void receiveCall() {
 
-        Scanner scan = new Scanner(System.in);
-
         try {
             currentState.setStream(new AudioStreamUDP(currentState.getLocalAudioPort()));
         } catch (IOException e) {

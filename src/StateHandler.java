@@ -286,21 +286,6 @@ public class StateHandler {
                 currentState.receiveCall();
 
                 new ClientHandlerListener().start();
-
-//                if (currentState.getState().toLowerCase().equals("waitokconnecting")) {
-//                    currentState.sendAck();
-//                } else {
-//                    return;
-//                }
-//
-//                if (currentState.getState().toLowerCase().equals("connected")) {
-//                    System.out.println("ClientHandler: We are now connected.");
-//
-//                    //TODO: implement audio logic.
-//                    currentState.receiveCall();
-//
-//                    new ClientHandlerListener().start();
-//                }
             }
         }
     }
@@ -371,27 +356,6 @@ public class StateHandler {
 
                         System.out.println("busy: " + busy);
 
-//                        try {
-//                            String request = in.readLine();
-//                            System.out.println("request: " + request);
-//                            currentState.gotInvite(request);
-//                            if (currentState.getState().toLowerCase().equals("connecting")) {
-//                                currentState.tryConnect();
-//                                if (currentState.getState().toLowerCase().equals("waitack")) {
-//                                    currentState.gotAck();
-//                                    if (currentState.getState().toLowerCase().equals("connected")) {
-//                                        System.out.println("ClientListener: We are now connected.");
-//
-//                                        //TODO: implement audio logic.
-//                                        currentState.startCall();
-//                                        new ClientHandlerListener().start();
-//                                    }
-//                                }
-//                            }
-//                        } catch (SocketTimeoutException e) {
-//                            currentState.noResponse();
-//                            busy = false;
-//                        }
                     }
                     try {
                         Thread.sleep(1000);
