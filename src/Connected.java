@@ -68,8 +68,8 @@ public class Connected implements SIPState {
         PrintWriter out = currentState.getOut();
         out.println("OK");
         System.out.println("gotBye");
-        currentState.getStream().close();
         currentState.getStream().stopStreaming();
+        currentState.getStream().close();
         currentState.setCurrentState(currentState.getNotConnected());
         System.out.println("getNotConnected");
     }

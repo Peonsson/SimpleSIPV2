@@ -47,8 +47,8 @@ public class WaitOkDisconnecting implements SIPState {
     @Override
     public void gotOk() {
         System.out.println("gotOk");
-        currentState.getStream().close();
         currentState.getStream().stopStreaming();
+        currentState.getStream().close();
         currentState.setCurrentState(currentState.getNotConnected());
         System.out.println("getNotConnected");
     }
