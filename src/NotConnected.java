@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -57,7 +58,10 @@ public class NotConnected implements SIPState {
 
             currentState.setCurrentState(currentState.getWaitOkConnecting());
 
-        } catch (UnknownHostException e) {
+        } catch (ConnectException e) {
+            System.err.println("Couldn't connect to user agent.");
+        }
+        catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

@@ -314,6 +314,8 @@ public class StateHandler {
 
             } catch (NullPointerException e) {
                 System.err.println("Connection terminated unexpectedly.");
+                stream.stopStreaming();
+                stream.close();
                 currentState.noResponse();
             }
             catch (SocketTimeoutException e) {
