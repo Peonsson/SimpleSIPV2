@@ -101,7 +101,18 @@ public class NotConnected implements SIPState {
     }
 
     @Override
-    public void gotInvite(String request) {
+    public void gotInvite() {
+
+        BufferedReader in = currentState.getIn();
+        PrintWriter out = currentState.getOut();
+        String request = null;
+
+        try {
+            request = in.readLine();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 
         String[] parts = request.split(" ");
 
@@ -114,6 +125,7 @@ public class NotConnected implements SIPState {
             currentState.setAudioPort(Integer.parseInt(parts[5]));
 
             System.out.println("gotInvite");
+            out.println("OK");
             currentState.setCurrentState(currentState.getConnecting());
         } else {
             System.err.println("EXPECTED INVITE BUT GOT: " + parts[0].toString());
