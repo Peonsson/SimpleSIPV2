@@ -273,6 +273,7 @@ public class StateHandler {
                 if (parts.length == 6 && parts[0].equals("INVITE")) {
                     currentState.sendInvite(input);
                 } else {
+                    busy = false;
                     System.err.println("Unexpected command.");
                     continue;
                 }
