@@ -272,7 +272,8 @@ public class StateHandler {
                 if (parts.length == 6 && parts[0].equals("INVITE")) {
                     currentState.sendInvite(input);
                 } else {
-                    return;
+                    System.err.println("Unexpected command.");
+                    continue;
                 }
 
                 currentState.sendAck();
@@ -306,7 +307,7 @@ public class StateHandler {
                     busy = false;
                 } else {
                     System.err.println("ClientHandlerListener: something went wrong 2.");
-                    return;
+                    currentState.noResponse();
                 }
 
             } catch (NullPointerException e) {
