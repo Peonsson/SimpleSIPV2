@@ -67,7 +67,7 @@ public class WaitOkDisconnecting implements SIPState {
     }
 
     @Override
-    public void gotInvite(String request) {
+    public void gotInvite() {
         System.err.println("ERROR");
     }
 

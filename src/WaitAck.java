@@ -58,7 +58,6 @@ public class WaitAck implements SIPState {
     public void gotAck() {
 
         BufferedReader in = currentState.getIn();
-        PrintWriter out = currentState.getOut();
 
         try {
             String response = in.readLine();
@@ -92,7 +91,7 @@ public class WaitAck implements SIPState {
     }
 
     @Override
-    public void gotInvite(String request) {
+    public void gotInvite() {
         System.err.println("ERROR9");
     }
 
