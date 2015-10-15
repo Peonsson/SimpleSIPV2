@@ -250,7 +250,6 @@ public class StateHandler {
                 String input = scan.nextLine();
 
                 if (busy == true && input.toLowerCase().equals("bye")) {
-
                     currentState.sendBye();
                     System.out.println("Killing ClientHandler Thread.");
                     continue;
