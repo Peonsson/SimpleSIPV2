@@ -37,6 +37,7 @@ public class WaitOkConnecting implements SIPState {
     @Override
     public void sendAck() {
         try {
+            currentState.getClientSocket().setSoTimeout(3000);
             BufferedReader in = currentState.getIn();
             String request = in.readLine();
 
