@@ -45,6 +45,7 @@ public class WaitOkConnecting implements SIPState {
                 PrintWriter out = currentState.getOut();
                 out.println("ACK");
                 currentState.getClientSocket().setSoTimeout(0);
+                System.out.println("ClientHandler: We are now connected.");
                 currentState.setCurrentState(currentState.getConnected());
             } else if (request.toLowerCase().equals("busy")) {
                 System.out.println("waitOkConnecting gotBusy");

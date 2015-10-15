@@ -64,6 +64,7 @@ public class WaitAck implements SIPState {
             if(response.toLowerCase().equals("ack")) {
                 System.out.println("gotAck");
                 currentState.getClientSocket().setSoTimeout(0); //TURN OFF TIMEOUT
+                System.out.println("ClientHandler: We are now connected.");
                 currentState.setCurrentState(currentState.getConnected());
             } else {
                 System.err.println("EXPECTED ACK BUT GOT: " + response);

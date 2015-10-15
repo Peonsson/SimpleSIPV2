@@ -277,8 +277,6 @@ public class StateHandler {
                 }
 
                 currentState.sendAck();
-                System.out.println("ClientHandler: We are now connected.");
-
                 currentState.receiveCall();
 
                 new ClientHandlerListener().start();
