@@ -127,6 +127,7 @@ class Receiver implements Runnable{
         }
         catch(SocketException se) {
             System.out.println("Receiver socket is closed");
+            se.printStackTrace();
             // If the thread is blocked in a receive call, an exception is thrown when
             // the socket is closed, causing the thread to unblock.
         }
@@ -273,6 +274,7 @@ class Sender implements Runnable {
         catch(SocketException se) {
             System.out.println("Sender socket is closed");
             // Exception is thrown if socket is closed before last call to send.
+            se.printStackTrace();
         }
         catch(Exception e) {
             e.printStackTrace();

@@ -143,11 +143,13 @@ public class Connected implements SIPState {
 
             BufferedReader in = currentState.getIn();
             int remotePort = Integer.parseInt(in.readLine());
+
             System.out.println("remotePort: " + remotePort);
 
             InetAddress address = InetAddress.getByName(currentState.getIp_to());
 
             System.out.println("receiveCall: adress: " + currentState.getIp_to() + ", port: " + remotePort);
+
             stream.connectTo(address, remotePort);
 
             System.out.println("---ENTER TO START STREAMING---");
