@@ -98,6 +98,8 @@ public class Connected implements SIPState {
 
         AudioStreamUDP stream = currentState.getStream();
 
+        Scanner scan = new Scanner(System.in);
+
         try {
 
             PrintWriter out = currentState.getOut();
@@ -108,6 +110,8 @@ public class Connected implements SIPState {
 
             System.out.println("startCall: Ip_from: " + currentState.getIp_from() + ", remotePort: " + remotePort);
             stream.connectTo(host, remotePort);
+
+            String reply = scan.nextLine();
 
             stream.startStreaming();
 
@@ -140,9 +144,10 @@ public class Connected implements SIPState {
 
             InetAddress address = InetAddress.getByName(currentState.getIp_to());
 
-            System.out.println("receiveCall: getIp_to: " + currentState.getIp_to() + ", remotePort: " +remotePort);
+            System.out.println("receiveCall: getIp_to: " + currentState.getIp_to() + ", remotePort: " + remotePort);
             stream.connectTo(address, remotePort);
 
+            String reply = scan.nextLine();
             stream.startStreaming();
 
             System.out.println("Press ANY key to stop streaming");
