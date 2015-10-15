@@ -360,6 +360,7 @@ public class StateHandler {
                         currentState.startCall();
                         new ClientHandlerListener().start();
 
+                        System.out.println("busy: " + busy);
 
 
 //                        try {
@@ -383,8 +384,6 @@ public class StateHandler {
 //                            currentState.noResponse();
 //                            busy = false;
 //                        }
-                    } else {
-                        System.out.println("busy: " + busy);
                     }
                     try {
                         Thread.sleep(1000);
