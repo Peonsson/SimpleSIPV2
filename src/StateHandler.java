@@ -2,10 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
+import java.net.*;
 import java.util.Scanner;
 
 /**
@@ -344,8 +341,9 @@ public class StateHandler {
                 while (true) {
                     if (busy == false) {
 
-                        System.out.println("Listening..");
+                        System.out.println("Listening at.. " + InetAddress.getLocalHost().getHostAddress() + ":" + listenSocket.getLocalPort());
                         clientSocket = listenSocket.accept();
+
                         busy = true;
 
                         clientSocket.setSoTimeout(3000);
