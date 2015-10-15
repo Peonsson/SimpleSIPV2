@@ -91,7 +91,7 @@ public class Connected implements SIPState {
     public void startCall() {
 
         try {
-            currentState.setStream(new AudioStreamUDP(currentState.getLocalAudioPort()));
+            currentState.setStream(new AudioStreamUDP(currentState.getRemoteAudioPort()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,9 +108,10 @@ public class Connected implements SIPState {
             int remotePort = currentState.getRemoteAudioPort();
             InetAddress host = InetAddress.getByName(currentState.getIp_from());
 
-            System.out.println("startCall: Ip_from: " + currentState.getIp_from() + ", remotePort: " + remotePort);
+            System.out.println("startCall: adress: " + currentState.getIp_from() + ", port: " + remotePort);
             stream.connectTo(host, remotePort);
 
+            System.out.println("---ENTER TO START STREAMING---");
             String reply = scan.nextLine();
 
             stream.startStreaming();
@@ -144,9 +145,10 @@ public class Connected implements SIPState {
 
             InetAddress address = InetAddress.getByName(currentState.getIp_to());
 
-            System.out.println("receiveCall: getIp_to: " + currentState.getIp_to() + ", remotePort: " + remotePort);
+            System.out.println("receiveCall: adress: " + currentState.getIp_to() + ", port: " + remotePort);
             stream.connectTo(address, remotePort);
 
+            System.out.println("---ENTER TO START STREAMING---");
             String reply = scan.nextLine();
             stream.startStreaming();
 
