@@ -24,6 +24,16 @@ public class AudioStreamUDP {
         this.sender = new Sender(senderSocket, format);
     }
 
+    public AudioStreamUDP() throws IOException {
+        this.receiverSocket = new DatagramSocket();
+        //receiverSocket.setSoTimeout(TIME_OUT);
+        this.senderSocket = new DatagramSocket();
+
+        format = new AudioFormat(22050, 16, 1, true, true); // 44100
+        this.receiver = new Receiver(receiverSocket, format);
+        this.sender = new Sender(senderSocket, format);
+    }
+
     public int getLocalPort() {
         return receiverSocket.getLocalPort();
     }

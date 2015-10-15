@@ -91,7 +91,7 @@ public class Connected implements SIPState {
     public void startCall() {
 
         try {
-            currentState.setStream(new AudioStreamUDP(currentState.getRemoteAudioPort()));
+            currentState.setStream(new AudioStreamUDP());
         } catch (IOException e) {
             e.printStackTrace();
         }
