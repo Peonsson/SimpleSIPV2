@@ -351,7 +351,6 @@ public class StateHandler {
                         new ClientHandlerListener().start();
 
                         System.out.println("busy: " + busy);
-
                     }
                     try {
                         Thread.sleep(200);
