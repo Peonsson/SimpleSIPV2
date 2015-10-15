@@ -15,7 +15,7 @@ public interface SIPState {
     public void gotAck();
     public void gotBye();
     public void gotBusy();
-    public void gotInvite(String response);
+    public void gotInvite();
     public String getState();
     public void startCall();
     public void receiveCall();
