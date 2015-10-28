@@ -40,6 +40,8 @@ public class StateHandler {
 
     private boolean talking = false;
 
+    private boolean failHandshake = false;
+
     public StateHandler() {
 
         notConnected = new NotConnected(this);
@@ -245,6 +247,14 @@ public class StateHandler {
         return this.in;
     }
 
+    public void setFailHandshake(boolean fail) {
+        this.failHandshake = fail;
+    }
+
+    public boolean getFailHandshake() {
+        return failHandshake;
+    }
+
     /**
      * Call initiator. (A)
      */
@@ -256,7 +266,6 @@ public class StateHandler {
             Scanner scan = new Scanner(System.in);
 
             while (true) {
-
                 String input = scan.nextLine();
 
                 if (busy == true && input.toLowerCase().equals("bye")) {

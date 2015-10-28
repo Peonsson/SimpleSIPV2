@@ -46,6 +46,11 @@ public class NotConnected implements SIPState {
             currentState.setIp_from(parts[4]);
             currentState.setLocalAudioPort(Integer.parseInt(parts[5]));
 
+            // See if handhsake should fail or not according to user
+            if (parts[6].equals("FAIL")) {
+                currentState.setFailHandshake(true);
+            }
+
             InetAddress host = InetAddress.getByName(parts[3]);
             currentState.setClientSocket(new Socket(host, 5060));
 
@@ -54,7 +59,12 @@ public class NotConnected implements SIPState {
             PrintWriter out = currentState.setOut(new PrintWriter(currentState.getClientSocket().getOutputStream(), true));
             currentState.setIn(new BufferedReader(new InputStreamReader(currentState.getClientSocket().getInputStream())));
 
-            out.println(request);
+            if (currentState.getFailHandshake()) {
+                out.println("HEJ " + parts[1] + " " + parts[2] + " " + parts[3] + " " + parts[4] + " " + parts[5]);
+            }
+            else {
+                out.println(request);
+            }
 
             System.out.println("sendInvite");
 
