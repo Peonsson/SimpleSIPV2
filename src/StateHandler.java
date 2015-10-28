@@ -279,7 +279,7 @@ public class StateHandler {
                 busy = true;
                 String[] parts = input.split(" ");
 
-                if (parts.length == 6 && parts[0].equals("INVITE")) {
+                if (parts.length == 7 && parts[0].equals("INVITE")) {
                     currentState.sendInvite(input);
                 } else {
                     busy = false;
