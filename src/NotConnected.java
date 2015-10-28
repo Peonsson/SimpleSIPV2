@@ -47,7 +47,7 @@ public class NotConnected implements SIPState {
             currentState.setLocalAudioPort(Integer.parseInt(parts[5]));
 
             // See if handhsake should fail or not according to user
-            if (parts.length == 6) {
+            if (parts.length == 7) {
                 if (parts[6].equals("FAIL")) {
                     currentState.setFailHandshake(true);
                 }
