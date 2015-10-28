@@ -5,8 +5,8 @@ import java.net.InetAddress;
 import java.util.Scanner;
 
 /**
- * Created by Johan Pettersson on 2015-10-09 18:27.
- * Contact: johanp7@kth.se
+ * Created by Johanp7 & robinvet on 2015-10-09 18:27.
+ * Contact: johanp7@kth.se, robinvet@kth.se
  */
 
 public class Connected implements SIPState {
