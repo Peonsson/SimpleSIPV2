@@ -26,6 +26,7 @@ public class StateHandler {
     private PrintWriter out;
     private BufferedReader in;
     AudioStreamUDP stream = null;
+    BusyThread t1 = null;
 
     private final int SERVER_PORT = 5060;
     private boolean busy = false;
@@ -309,6 +310,7 @@ public class StateHandler {
                 if (currentState.getState().toLowerCase().equals("connected") && request.toLowerCase().equals("bye")) { //om vi l�ser bye
                     currentState.gotBye();
                     if (currentState.getState().toLowerCase().equals("notconnected")) {
+//                        t1.interrupt();
                         busy = false;
                     } else {
                         System.err.println("ClientHandlerListener: something went wrong 1.");
@@ -350,12 +352,21 @@ public class StateHandler {
             try {
 
                 ServerSocket listenSocket = new ServerSocket(SERVER_PORT);
+//                t1 = new BusyThread(listenSocket);
 
                 while (true) {
-                    if (busy == false) {
 
                         System.out.println("Listening at.. " + InetAddress.getLocalHost().getHostAddress() + ":" + listenSocket.getLocalPort());
-                        clientSocket = listenSocket.accept();
+
+                        Socket temp = listenSocket.accept();
+
+                        if(busy == true) {
+                             PrintWriter tempOut = new PrintWriter(temp.getOutputStream(), true);
+                             tempOut.println("BUSY");
+                             continue;
+                        } else {
+                            clientSocket = temp;
+                        }
 
                         busy = true;
 
@@ -368,19 +379,45 @@ public class StateHandler {
                         currentState.tryConnect();
                         currentState.gotAck();
                         currentState.startCall();
+
                         new ClientHandlerListener().start();
+//                        t1.start();
 
                         System.out.println("busy: " + busy);
-                    }
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private class BusyThread extends Thread {
+
+        private ServerSocket listenSocket;
+
+        public BusyThread(ServerSocket listenSocket) {
+            this.listenSocket = listenSocket;
+        }
+
+        @Override
+        public void run() {
+
+            try {
+                System.out.println("Running busy thread..");
+                Socket temporal = listenSocket.accept();
+                out = new PrintWriter(temporal.getOutputStream(), true);
+                out.println("BUSY");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void interrupt() {
+            super.interrupt();
+            return;
         }
     }
 }
