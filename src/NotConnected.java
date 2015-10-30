@@ -75,6 +75,7 @@ public class NotConnected implements SIPState {
 
         } catch (ConnectException e) {
             System.err.println("Couldn't connect to user agent.");
+            currentState.setBusy(false);
             currentState.noResponse();
         }
         catch (UnknownHostException e) {

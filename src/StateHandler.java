@@ -323,8 +323,13 @@ public class StateHandler {
 
             } catch (NullPointerException e) {
                 System.err.println("Connection terminated unexpectedly.");
-                stream.stopStreaming();
-                stream.close();
+                try{
+                    stream.stopStreaming();
+                    stream.close();
+                } catch (NullPointerException ex) {
+                    System.err.println("couldn't stop or close AudioStreamSocket");
+                }
+
                 currentState.noResponse();
             }
             catch (SocketTimeoutException e) {
